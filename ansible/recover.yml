@@ -1,0 +1,14 @@
+---
+- name: Recover NGINX Service
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Restart NGINX
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Restart System if Needed  # Optional, for severe cases like high CPU persisting
+      reboot:
+        msg: "Rebooting due to high CPU alert"
+      when: false  # Enable conditionally if needed

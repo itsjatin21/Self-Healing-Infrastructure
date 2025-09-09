@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']  # Node Exporter for CPU/system metrics
+  - job_name: 'nginx'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['localhost:9113']  # We'll set up NGINX exporter next
+
+rule_files:
+  - /opt/prometheus/rules.yml  # We'll create this for alerts
